@@ -31,16 +31,16 @@ def runningTask():
         runningTask = [task for task in tasks if task["status"]=="running"]
         if runningTask:
             for task in runningTask:
-                print(f"running Tasks: \nTaskId: {task["taskId"]}, Status: {task["status"]}")
-        return
+                print(f"running Tasks: \nTaskId: {task['taskId']}, Status: {task['status']}")
+            return
         print("Task not found")
 
 def completedTask():
         runningTask = [task for task in tasks if task["status"]=="completed"]
         if runningTask:
             for task in runningTask:
-                print(f"completed Tasks: \nTaskId: {task["taskId"]}, Status: {task["status"]}")
-        return
+                print(f"completed Tasks: \nTaskId: {task['taskId']}, Status: {task['status']}")
+            return
         print("Task not found")
 
 while True:
@@ -80,4 +80,3 @@ while True:
 
     else:
         print("Invalid Option")
-
