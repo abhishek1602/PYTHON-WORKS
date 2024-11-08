@@ -16,34 +16,32 @@ def updateTask(taskId, newStatus):
         if task["taskId"] == taskId:
             task["status"] = newStatus
             print(f"Status of Task: {taskId} changed to: {newStatus}")
-        else:
-            print("Tasks not found")
+        return
+    print("Tasks not found")
 
 def removeTasks(taskId):
     for task in tasks:
         if task["taskId"] == taskId:
-            tasks.pop(task)
+            tasks.remove(task)
             print(f"The task: {taskId} has been removed successfully")
-        else:
-            print("Task not found")
+        return
+    print("Task not found")
 
 def runningTask():
         runningTask = [task for task in tasks if task["status"]=="running"]
         if runningTask:
             for task in runningTask:
                 print(f"running Tasks: \nTaskId: {task["taskId"]}, Status: {task["status"]}")
-
-            else:
-                print("Task not found")
+        return
+        print("Task not found")
 
 def completedTask():
         runningTask = [task for task in tasks if task["status"]=="completed"]
         if runningTask:
             for task in runningTask:
-                print(f"running Tasks: \nTaskId: {task["taskId"]}, Status: {task["status"]}")
-
-            else:
-                print("Task not found")
+                print(f"completed Tasks: \nTaskId: {task["taskId"]}, Status: {task["status"]}")
+        return
+        print("Task not found")
 
 while True:
 
@@ -81,5 +79,5 @@ while True:
         break
 
     else:
-        print(f"Invalid Option")
+        print("Invalid Option")
 
