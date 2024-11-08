@@ -22,7 +22,7 @@ def getMultiples(userInput):
     multiples = [userInput * i for i in range(1,6)]
 
     numDict = {
-        "statuscode": 0,
+        "statuscode": userInput,
         "statusmessage": "success",
         "data": multiples
     }
