@@ -9,14 +9,14 @@ tasks = []
 def addTask(taskId, status):
     task = {"taskId": taskId, "status": status}
     tasks.append(task)
-    print(f"New task added named: {taskId}")
+    print(f"New task added with taskId: {taskId}, status: {status}")
 
 def updateTask(taskId, newStatus):
     for task in tasks:
         if task["taskId"] == taskId:
             task["status"] = newStatus
             print(f"Status of Task: {taskId} changed to: {newStatus}")
-        return
+            return
     print("Tasks not found")
 
 def removeTasks(taskId):
@@ -24,7 +24,7 @@ def removeTasks(taskId):
         if task["taskId"] == taskId:
             tasks.remove(task)
             print(f"The task: {taskId} has been removed successfully")
-        return
+            return
     print("Task not found")
 
 def runningTask():
@@ -32,7 +32,7 @@ def runningTask():
         if runningTask:
             for task in runningTask:
                 print(f"running Tasks: \nTaskId: {task['taskId']}, Status: {task['status']}")
-            return
+                return
         print("Task not found")
 
 def completedTask():
@@ -40,7 +40,7 @@ def completedTask():
         if runningTask:
             for task in runningTask:
                 print(f"completed Tasks: \nTaskId: {task['taskId']}, Status: {task['status']}")
-            return
+                return
         print("Task not found")
 
 while True:
