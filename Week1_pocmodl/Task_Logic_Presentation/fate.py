@@ -3,7 +3,7 @@ from logics import logic
 
 
 def fate():
-    print("fate")
+    print("TASKS: ")
 
 
 if __name__ == "__main__":
@@ -14,10 +14,13 @@ if __name__ == "__main__":
     task2 = task(2, "task2","running", "low", "linux")
 
 
+    print(f"\n{task3},\n\n{task4},\n\n{task1},\n\n{task2}")
+
+
     lgk = logic()
     sortById = lgk.sortById()
 
-    taskadd = lgk.add(task3)
+    taskadd = lgk.add(task4)
     taskadd = lgk.add(task4)
     taskadd = lgk.add(task1)
     taskadd = lgk.add(task2)
@@ -41,6 +44,15 @@ if __name__ == "__main__":
     print("\nFiltered By Location: Linux")
     for task in filterByLinuxLocation:
         print(f"Task Running on linux: {task.taskId} Name: {task.taskName}")
+
+    removeTasks = lgk.removeTask(task2)
+    removeTasks = lgk.removeTask(task4)
+
+    
+        
+    
+
+    
 
     
 
