@@ -43,6 +43,10 @@ def completedTask():
                 return
         print("Task not found")
 
+def viewTasks():
+    for tsk in tasks:
+        print(tasks)
+
 while True:
 
     print("\nOptions:")
@@ -51,7 +55,8 @@ while True:
     print("3. Remove Task")
     print("4. Print running Tasks")
     print("5. Print Completed Tasks")
-    print("6. Exit")
+    print("6. View tasks")
+    print("7. Exit")
 
     choice = input("Choose An Option (1-6): ")
 
@@ -76,6 +81,9 @@ while True:
         completedTask()
 
     elif choice == '6':
+        viewTasks()
+
+    elif choice == '7':
         break
 
     else:
