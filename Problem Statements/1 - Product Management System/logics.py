@@ -32,8 +32,7 @@ class Logics:
         return self.products
 
 
-    def applyDiscount(self, discountPercentage):
-        
+    def applyDiscount(self, discountPercentage):       
         for dProducts in self.products:
             discAmount = dProducts.productPrice * discountPercentage / 100
             dProducts.productPrice = round(dProducts.productPrice - discAmount,2)      
