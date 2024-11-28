@@ -4,14 +4,12 @@ from typing import Dict
 from logics import Logics
 
 
-# Create a Pydantic model for the input
 class Product(BaseModel):
     productId: int
     productName: str
     productPrice: float
 
 
-# Initialize FastAPI app
 app = FastAPI()
 lgk = Logics()
 

@@ -35,7 +35,7 @@ class Logic:
         return f"Product {product_id} Not Found"
     
 
-    def view_update(self):
+    def view_product(self):
         products = self.db.query(Product).all()
         return products
     
