@@ -53,5 +53,5 @@ def apply_discount(discount_percentage: float):
     if discount_percentage < 0 or discount_percentage > 100:
         raise HTTPException(status_code=400, detail="Invalid discount percentage")
     price = lgk.apply_discount(discount_percentage)
-    return price
+    return {"message": "Discount applied successfully", "Discount": discount_percentage}
     
