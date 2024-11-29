@@ -23,14 +23,14 @@ def get_guest_by_id(guest_id: int, db: Session = Depends(get_db)):
 def get_all_guests(db: Session = Depends(get_db)):
     return logic.get_all_guests(db)
 
-@app.get("/guests/search/", response_model=GuestSchema)
+@app.get("/guests/search/", response_model=list[GuestSchema])
 def get_guest_by_name(guest_name: str, db: Session = Depends(get_db)):
     guests = logic.get_guest_by_name(db, guest_name)
     if not guests:
         raise HTTPException(status_code=404, detail="No guests found with that name")
     return guests
 
-@app.get("/guests/status/", response_model= GuestSchema)
+@app.get("/guests/status/", response_model= list[GuestSchema])
 def get_guest_by_status(guest_status: str, db: Session = Depends(get_db)):
     guests = logic.get_guest_by_status(db, guest_status)
     if not guests:
