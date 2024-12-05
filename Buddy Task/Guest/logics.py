@@ -27,7 +27,10 @@ class GuestLogic:
             guest.guest_status = guest_status
             db.commit()
             db.refresh(guest)
+            db.rollback()
         return guest
+
+    
 
     def get_all_guests(self, db: Session):
         return db.query(Guest).all()
