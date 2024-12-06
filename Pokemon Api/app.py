@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from schemas import PokemonBase, PokemonType
 from logics import pokedex
 from typing import List
+
 
 app = FastAPI()
 
@@ -44,4 +45,12 @@ def delete_pokemon(pokemon_id: int):
     if not deleted:
         raise HTTPException(status_code=404, detail="Pokemon Not Found")
     return {"message": "Pokemon successfully deleted"}
+
+
+@app.get("/pokemon/", response_model=List[PokemonBase])
+def get_all_pokemon(page: int=Query(1,gt=0), per_page: int=Query(1,gt=0)):
+    get = pokedex.get_pokemon_pagination(page, per_page)
+    if not get:
+        raise HTTPException(status_code=404, detail="No Pokemons Found")
+    return get
     

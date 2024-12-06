@@ -93,6 +93,12 @@ class Pokedex:
                 return True
         return False
     
+    def get_pokemon_pagination(self, page: int, per_page: int) -> List[Pokemon]:
+        start = (page - 1) * per_page
+        end = start + per_page
+        return self.pokemons[start:end]
+    
+    
 
 pokedex = Pokedex()
 
