@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from enum import Enum
 
 class PokemonType(str, Enum):
@@ -33,3 +33,15 @@ class PokemonBase(BaseModel):
     abilities : List[str]
     stats : List[dict]
     types : List[PokemonType]
+
+
+class PokemonUpdate(BaseModel): 
+    name: Optional[str] = None 
+    height: Optional[int] = None 
+    weight: Optional[int] = None 
+    xp: Optional[int] = None 
+    image_url: Optional[str] = None 
+    pokemon_url: Optional[str] = None 
+    abilities: Optional[List[str]] = None 
+    stats: Optional[List[dict]] = None 
+    types: Optional[List[PokemonType]] = None
