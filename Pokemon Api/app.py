@@ -55,7 +55,7 @@ def get_all_pokemon(page: int=Query(1,gt=0), per_page: int=Query(1,gt=0)):
     return get
 
 @app.get("/pokemon/", response_model=List[dict])
-def get_all_pokemon(page: int=Query(1,gt=0), per_page: int=Query(1,gt=0)):
+def get_pokemon_id_and_name(page: int=Query(1,gt=0), per_page: int=Query(1,gt=0)):
     get = pokedex.get_pokemon_name_and_id(page, per_page)
     if not get:
         raise HTTPException(status_code=404, detail="No Pokemons Found")
