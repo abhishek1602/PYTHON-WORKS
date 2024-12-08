@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, Query
-from schemas import PokemonBase, PokemonType
+from schemas import PokemonBase, PokemonType, PokemonUpdate
 from logics import pokedex
 from typing import List
 
@@ -33,7 +33,7 @@ def get_pokemon_by_types(pokemon_type : PokemonType):
     return pokemon
 
 @app.patch("/pokemon/{pokemon_id}", response_model=PokemonBase)
-def update_pokemon(pokemon_id : int, pokemon_data: PokemonBase):
+def update_pokemon(pokemon_id : int, pokemon_data: PokemonUpdate):
     pokemon = pokedex.update_pokemon(pokemon_id, pokemon_data)
     if pokemon is None:
         raise HTTPException(status_code=404, detail="Pokemon Not Found")
