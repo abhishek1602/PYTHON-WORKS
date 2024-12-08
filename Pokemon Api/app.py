@@ -6,13 +6,13 @@ from typing import List
 
 app = FastAPI()
 
-@app.post("/pokemon/", response_model=PokemonBase)
+@app.post("/pokemon/", response_model=PokemonBase, status_code=201)
 def add_pokemon(pokemon_data : PokemonBase):
     pokemon = pokedex.add_pokemon(pokemon_data)
     return pokemon
 
 @app.get("/pokemon/{pokemon_id}", response_model=PokemonBase)
-def get_pokemon(pokemon_id : int):
+def get_pokemon_by_id(pokemon_id : int):
     pokemon = pokedex.get_pokemon_by_id(pokemon_id)
     if pokemon is None:
         raise HTTPException(status_code=404, detail="Pokemon not found")
@@ -32,14 +32,14 @@ def get_pokemon_by_types(pokemon_type : PokemonType):
         raise HTTPException(status_code=404, detail="Pokemon Not Found")
     return pokemon
 
-@app.put("/pokemon/{pokemon_id}", response_model=PokemonBase)
+@app.patch("/pokemon/{pokemon_id}", response_model=PokemonBase)
 def update_pokemon(pokemon_id : int, pokemon_data: PokemonBase):
     pokemon = pokedex.update_pokemon(pokemon_id, pokemon_data)
     if pokemon is None:
         raise HTTPException(status_code=404, detail="Pokemon Not Found")
     return pokemon
 
-@app.delete("/pokemon/{pokemon_id}")
+@app.delete("/pokemon/{pokemon_id}", status_code=204)
 def delete_pokemon(pokemon_id: int):
     deleted = pokedex.delete_pokemon(pokemon_id)
     if not deleted:
