@@ -46,9 +46,6 @@ class Pokedex:
             stats=pokemon_data.stats,
             types=[PokemonType(typ) for typ in pokemon_data.types]   
             )
-        for pokemon in self.pokemons:
-            if pokemon.name == new_pokemon.name:
-                raise ValueError("Duplicate pokemon cannot be added")
         self.pokemons.append(new_pokemon)
         self.next_id = self.next_id+1
         return new_pokemon
@@ -108,15 +105,12 @@ class Pokedex:
         return False
     
     def get_pokemon_pagination(self, page: int, per_page: int) -> List[Pokemon]:
-        if per_page > 50:
-            raise ValueError("Unable to show more than 50 pokemons")
+
         start = (page - 1) * per_page
         end = start + per_page
         return self.pokemons[start:end]
     
     def get_pokemon_name_and_id(self, page: int, per_page: int) -> List[dict]:  
-        if per_page > 50: 
-            raise ValueError("Unable to show more than 50 pokemons")
         start = (page - 1) * per_page 
         end = start + per_page 
         result = [] 

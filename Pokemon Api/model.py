@@ -11,5 +11,3 @@ class Pokemon:
         self.abilities = abilities
         self.stats = stats
         self.types = types
-
-

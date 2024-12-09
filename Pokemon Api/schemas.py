@@ -45,3 +45,18 @@ class PokemonUpdate(BaseModel):
     abilities: Optional[List[str]] = None 
     stats: Optional[List[dict]] = None 
     types: Optional[List[PokemonType]] = None
+
+class PokemonAdd(BaseModel):
+    name : str
+    height : int
+    weight : int
+    xp : int
+    image_url : str
+    pokemon_url : str
+    abilities : List[str]
+    stats : List[dict]
+    types : List[PokemonType]
+
+class PokemonNameId(BaseModel):
+    id: int
+    name: str
