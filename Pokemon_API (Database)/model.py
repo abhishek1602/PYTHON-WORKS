@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import JSONB
 
 
 Base = declarative_base()
@@ -15,6 +15,6 @@ class Pokemon(Base):
     xp = Column(Integer, nullable=False)
     image_url = Column(String, nullable=False)
     pokemon_url = Column(String, nullable=False)
-    abilities = Column(JSON, nullable=False)
-    stats = Column(JSON, nullable=False)
-    types = Column(JSON, nullable=False)
+    abilities = Column(JSONB, nullable=False)
+    stats = Column(JSONB, nullable=False)
+    types = Column(JSONB, nullable=False)
