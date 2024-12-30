@@ -1,8 +1,13 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model import Base
+from dotenv import load_dotenv
 
-DATABASE_URL = "postgresql://postgres:admin1234@localhost/pokemon_database"
+load_dotenv()
+
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL)
 
