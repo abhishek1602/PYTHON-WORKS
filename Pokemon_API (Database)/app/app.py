@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import sessionlocal
-from schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonBase, PokemonType
-from logics import (
+from repositories.database import sessionlocal
+from schemas.schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonBase, PokemonType
+from crud.logics import (
     add_pokemon, get_all_pokemons, get_pokemon_by_id, get_pokemon_by_name,
     get_pokemon_by_type, update_pokemon, delete_pokemon, get_pokemon_id_name
 )
-from model import Pokemon
+from models.model import Pokemon
 
 app = FastAPI()
 

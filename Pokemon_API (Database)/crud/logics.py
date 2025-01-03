@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from model import Pokemon
-from schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonType
+from models.model import Pokemon
+from schemas.schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonType
 
 from sqlalchemy.orm import Session
 
