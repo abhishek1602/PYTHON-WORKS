@@ -1,6 +1,6 @@
 import json
-from repositories.database import sessionlocal, initialize_db
-from models.model import Pokemon
+from config.database import sessionlocal, initialize_db
+from models.pokemon_models import Pokemon
 
 def load_json_to_db(json_path : str):
     with open(json_path, 'r') as file:

@@ -1,12 +1,9 @@
+# repositories/pokemon_repository.py
 from sqlalchemy.orm import Session
-from fastapi import HTTPException
-from models.model import Pokemon
-from schemas.schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonType
+from models.pokemon_models import Pokemon
+from schemas.schemas import PokemonAdd, PokemonUpdate
 
-from sqlalchemy.orm import Session
-
-
-def add_pokemon(db: Session, pokemon_data: PokemonAdd):
+def add_pokemon(db: Session, pokemon_data):
     new_pokemon = Pokemon(
         name=pokemon_data.name.lower(),
         height=pokemon_data.height,
@@ -24,33 +21,24 @@ def add_pokemon(db: Session, pokemon_data: PokemonAdd):
     db.refresh(new_pokemon)
     return new_pokemon
 
-
 def get_all_pokemons(db: Session, page: int, page_size: int = 20):
     return db.query(Pokemon).offset((page - 1) * page_size).limit(page_size).all()
 
 def get_pokemon_by_id(db: Session, pokemon_id: int):
-    pokemon = db.query(Pokemon).filter(Pokemon.id == pokemon_id).first()
-    if not pokemon:
-        raise HTTPException(status_code=404, detail="Pokemon not found")
-    return pokemon
+    return db.query(Pokemon).filter(Pokemon.id == pokemon_id).first()
 
 def get_pokemon_by_name(db: Session, name: str):
-    pokemon = db.query(Pokemon).filter(Pokemon.name == name.lower()).first()
-    if not pokemon:
-        raise HTTPException(status_code=404, detail="Pokemon not found")
-    return pokemon
+    return db.query(Pokemon).filter(Pokemon.name == name.lower()).first()
 
-def get_pokemon_by_type(db: Session, pokemon_type: PokemonType):
-    return db.query(Pokemon).filter(Pokemon.types.contains([pokemon_type.lower()])).all()
+def get_pokemon_by_type(db: Session, pokemon_type):
+    return db.query(Pokemon).filter(Pokemon.types.contains(pokemon_type)).all()
 
 def update_pokemon(db: Session, pokemon_id: int, update_data: PokemonUpdate):
     pokemon = db.query(Pokemon).filter(Pokemon.id == pokemon_id).first()
     if not pokemon:
-        raise HTTPException(status_code=404, detail="Pokemon not found")
-
-    for key, value in update_data.model_dump(exclude_unset=True).items():
+        return None
+    for key, value in update_data.model_dump(exclude_none=True).items():
         setattr(pokemon, key, value)
-
     db.commit()
     db.refresh(pokemon)
     return pokemon
@@ -58,12 +46,10 @@ def update_pokemon(db: Session, pokemon_id: int, update_data: PokemonUpdate):
 def delete_pokemon(db: Session, pokemon_id: int):
     pokemon = db.query(Pokemon).filter(Pokemon.id == pokemon_id).first()
     if not pokemon:
-        raise HTTPException(status_code=404, detail="Pokemon not found")
-
+        return None
     db.delete(pokemon)
     db.commit()
-    return {"detail": "Pokemon deleted successfully"}
+    return pokemon
 
 def get_pokemon_id_name(db: Session, page: int, page_size: int = 20):
-    pokemons = db.query(Pokemon.id, Pokemon.name).offset((page - 1) * page_size).limit(page_size).all()
-    return [PokemonIdNames(id=pokemon.id, name=pokemon.name) for pokemon in pokemons]
+    return db.query(Pokemon.id, Pokemon.name).offset((page - 1) * page_size).limit(page_size).all()

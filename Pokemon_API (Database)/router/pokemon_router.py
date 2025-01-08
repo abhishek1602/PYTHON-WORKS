@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from repositories.database import sessionlocal
+from config.database import sessionlocal
 from schemas.schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonBase, PokemonType
-from crud.logics import (
-    add_pokemon, get_all_pokemons, get_pokemon_by_id, get_pokemon_by_name,
-    get_pokemon_by_type, update_pokemon, delete_pokemon, get_pokemon_id_name
+from services.pokemon_services import (
+    add_pokemon, all_pokemons, pokemon_by_id, pokemon_by_name,
+    pokemon_by_type, update_pokemons, remove_pokemon, pokemon_id_name
 )
-from models.model import Pokemon
+from models.pokemon_models import Pokemon
 
 app = FastAPI()
 
@@ -25,29 +25,29 @@ def create_pokemon(pokemon: PokemonAdd, db: Session = Depends(get_db)):
     return add_pokemon(db, pokemon)
 
 @app.get("/pokemons/", response_model=list[PokemonBase])
-def all_pokemons(page: int = 1, db: Session = Depends(get_db)):
-    return get_all_pokemons(db, page)
+def get_all_pokemons(page: int = 1, db: Session = Depends(get_db)):
+    return all_pokemons(db, page)
 
 @app.get("/pokemons/{pokemon_id}", response_model=PokemonAdd)
-def pokemon_by_id(pokemon_id: int, db: Session = Depends(get_db)):
-    return get_pokemon_by_id(db, pokemon_id)
+def get_pokemon_by_id(pokemon_id: int, db: Session = Depends(get_db)):
+    return pokemon_by_id(db, pokemon_id)
 
 @app.get("/pokemons/name/{name}", response_model=PokemonBase)
-def pokemon_by_name(name: str, db: Session = Depends(get_db)):
-    return get_pokemon_by_name(db, name)
+def get_pokemon_by_name(name: str, db: Session = Depends(get_db)):
+    return pokemon_by_name(db, name)
 
 @app.get("/pokemons/type/{pokemon_type}", response_model=list[PokemonBase])
-def pokemon_by_type(pokemon_type: PokemonType, db: Session = Depends(get_db)):
-    return get_pokemon_by_type(db, pokemon_type)
+def get_pokemon_by_type(pokemon_type: PokemonType, db: Session = Depends(get_db)):
+    return pokemon_by_type(db, pokemon_type)
 
 @app.patch("/pokemons/{pokemon_id}", response_model=PokemonBase)
 def update_pokemon_details(pokemon_id: int, pokemon: PokemonUpdate, db: Session = Depends(get_db)):
-    return update_pokemon(db, pokemon_id, pokemon)
+    return update_pokemons(db, pokemon_id, pokemon)
 
 @app.delete("/pokemons/{pokemon_id}")
-def remove_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
-    return delete_pokemon(db, pokemon_id)
+def delete_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
+    return remove_pokemon(db, pokemon_id)
 
 @app.get("/pokemons/id-name/", response_model=list[PokemonIdNames])
-def pokemon_id_name(page: int = 1, db: Session = Depends(get_db)):
-    return get_pokemon_id_name(db, page)
+def get_pokemon_id_name(page: int = 1, db: Session = Depends(get_db)):
+    return pokemon_id_name(db, page)
