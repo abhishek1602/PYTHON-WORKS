@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import sessionlocal
 from schemas.schemas import PokemonAdd, PokemonUpdate, PokemonIdNames, PokemonBase, PokemonType
@@ -8,7 +8,8 @@ from services.pokemon_services import (
 )
 from models.pokemon_models import Pokemon
 
-app = FastAPI()
+# Create the router
+router = APIRouter()
 
 def get_db():
     db = sessionlocal()
@@ -17,37 +18,37 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/pokemons/", response_model=PokemonBase)
+@router.post("/", response_model=PokemonBase)
 def create_pokemon(pokemon: PokemonAdd, db: Session = Depends(get_db)):
     existing_pokemon = db.query(Pokemon).filter(Pokemon.name == pokemon.name.lower()).first()
     if existing_pokemon:
         raise HTTPException(status_code=406, detail="Cannot add duplicate pokemon")
     return add_pokemon(db, pokemon)
 
-@app.get("/pokemons/", response_model=list[PokemonBase])
+@router.get("/", response_model=list[PokemonBase])
 def get_all_pokemons(page: int = 1, db: Session = Depends(get_db)):
     return all_pokemons(db, page)
 
-@app.get("/pokemons/{pokemon_id}", response_model=PokemonAdd)
+@router.get("/{pokemon_id}", response_model=PokemonAdd)
 def get_pokemon_by_id(pokemon_id: int, db: Session = Depends(get_db)):
     return pokemon_by_id(db, pokemon_id)
 
-@app.get("/pokemons/name/{name}", response_model=PokemonBase)
+@router.get("/name/{name}", response_model=PokemonBase)
 def get_pokemon_by_name(name: str, db: Session = Depends(get_db)):
     return pokemon_by_name(db, name)
 
-@app.get("/pokemons/type/{pokemon_type}", response_model=list[PokemonBase])
+@router.get("/type/{pokemon_type}", response_model=list[PokemonBase])
 def get_pokemon_by_type(pokemon_type: PokemonType, db: Session = Depends(get_db)):
     return pokemon_by_type(db, pokemon_type)
 
-@app.patch("/pokemons/{pokemon_id}", response_model=PokemonBase)
+@router.patch("/{pokemon_id}", response_model=PokemonBase)
 def update_pokemon_details(pokemon_id: int, pokemon: PokemonUpdate, db: Session = Depends(get_db)):
     return update_pokemons(db, pokemon_id, pokemon)
 
-@app.delete("/pokemons/{pokemon_id}")
+@router.delete("/{pokemon_id}")
 def delete_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
     return remove_pokemon(db, pokemon_id)
 
-@app.get("/pokemons/id-name/", response_model=list[PokemonIdNames])
+@router.get("/id-name/", response_model=list[PokemonIdNames])
 def get_pokemon_id_name(page: int = 1, db: Session = Depends(get_db)):
     return pokemon_id_name(db, page)
