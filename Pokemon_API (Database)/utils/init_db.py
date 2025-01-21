@@ -1,5 +1,5 @@
 import json
-from config.database import sessionlocal, initialize_db
+from config.database import SessionLocal, initialize_db
 from models.pokemon_models import Pokemon
 
 def load_json_to_db(json_path : str):
@@ -7,7 +7,7 @@ def load_json_to_db(json_path : str):
         data = json.load(file)
 
 
-    db = sessionlocal()
+    db = SessionLocal()
     pokemons = [
         Pokemon(
             name=pokemon["name"].lower(),
