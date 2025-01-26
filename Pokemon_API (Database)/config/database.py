@@ -15,6 +15,7 @@ SessionLocal = sessionmaker(autocommit=False, bind=engine)
 def initialize_db():
     import models.pokemon_models
     import models.user_models
+    import models.pokemon_evolution
     
     Base.metadata.create_all(bind=engine)
 

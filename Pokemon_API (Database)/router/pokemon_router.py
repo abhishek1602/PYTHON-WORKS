@@ -9,7 +9,6 @@ from services.pokemon_services import (
 from models.pokemon_models import Pokemon
 from utils.auth import JWTBearer
 
-# Create the router
 router = APIRouter()
 
 
