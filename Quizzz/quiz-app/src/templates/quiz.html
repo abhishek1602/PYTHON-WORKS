@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="quiz-container">
+        <h1>{{ quiz.title }}</h1>
+        <p>Category: {{ quiz.category }} | Difficulty: {{ quiz.difficulty }}</p>
+        <div id="timer">60</div>
+        <form id="quiz-form" method="POST" action="{{ url_for('quiz.submit', quiz_id=quiz.id) }}">
+            {% for question in quiz.questions %}
+                <div class="question">
+                    <h3>{{ loop.index }}. {{ question.question }}</h3>
+                    <div class="options">
+                        <label><input type="radio" name="question_{{ question.id }}" value="option1"> {{ question.option1 }}</label><br>
+                        <label><input type="radio" name="question_{{ question.id }}" value="option2"> {{ question.option2 }}</label><br>
+                        <label><input type="radio" name="question_{{ question.id }}" value="option3"> {{ question.option3 }}</label><br>
+                        <label><input type="radio" name="question_{{ question.id }}" value="option4"> {{ question.option4 }}</label><br>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit">Submit Quiz</button>
+        </form>
+        <div class="hints">
+            <button id="hint-button">Get a Hint</button>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

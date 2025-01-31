@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Multiple Choice Questions</h1>
+        <form method="POST" action="/submit_answers">
+            <div id="mcq-list">
+                {% for mcq in mcqs %}
+                <div class="mcq-item">
+                    <p>{{ loop.index }}. {{ mcq.question }}</p>
+                    <ul>
+                        {% for option in mcq.options %}
+                        <li>
+                            <input type="radio" name="answer_{{ mcq.id }}" value="{{ option }}">
+                            {{ option }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p class="hint">Hint: {{ mcq.hint }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Submit Answers</button>
+        </form>
+        <div class="pagination">
+            {% if prev_page %}
+            <a href="{{ url_for('mcq.get_mcqs', page=prev_page) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ current_page }} of {{ total_pages }}</span>
+            {% if next_page %}
+            <a href="{{ url_for('mcq.get_mcqs', page=next_page) }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

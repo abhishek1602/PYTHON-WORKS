@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'base.html' %}
+    <div class="container">
+        <h1>Quiz Result</h1>
+        <p>Congratulations, {{ user.name }}!</p>
+        <p>Your final score: <strong>{{ score }}%</strong></p>
+        <p>Total Questions: {{ total_questions }}</p>
+        <p>Correct Answers: {{ correct_answers }}</p>
+        <p>Incorrect Answers: {{ incorrect_answers }}</p>
+        
+        <h2>Detailed Results</h2>
+        <ul>
+            {% for question, user_answer, correct_answer in results %}
+                <li>
+                    <strong>{{ question }}</strong><br>
+                    Your Answer: {{ user_answer }}<br>
+                    Correct Answer: {{ correct_answer }}<br>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <a href="{{ url_for('quiz_views.index') }}" class="btn">Try Another Quiz</a>
+        <a href="{{ url_for('user_views.leaderboard') }}" class="btn">View Leaderboard</a>
+    </div>
+</body>
+</html>

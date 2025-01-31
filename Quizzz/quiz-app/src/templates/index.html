@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Quiz Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('auth_views.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth_views.register') }}">Register</a></li>
+                <li><a href="{{ url_for('quiz_views.quiz_list') }}">Quizzes</a></li>
+                <li><a href="{{ url_for('user_views.leaderboard') }}">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Quizzes</h2>
+            <ul>
+                {% for quiz in quizzes %}
+                    <li>
+                        <a href="{{ url_for('quiz_views.start_quiz', quiz_id=quiz.id) }}">{{ quiz.title }}</a>
+                        <p>Category: {{ quiz.category }} | Difficulty: {{ quiz.difficulty }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; {{ current_year }} Quiz Application. All rights reserved.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

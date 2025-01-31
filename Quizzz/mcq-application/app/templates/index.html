@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the MCQ Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                <li><a href="{{ url_for('mcq.list_categories') }}">MCQ Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available MCQ Types</h2>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{{ url_for('mcq.list_mcqs', category=category) }}">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Admin Functions</h2>
+            {% if user.is_admin %}
+                <ul>
+                    <li><a href="{{ url_for('admin.upload_mcqs') }}">Upload MCQs in Bulk</a></li>
+                    <li><a href="{{ url_for('admin.manage_users') }}">Manage Users</a></li>
+                </ul>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 MCQ Application. All rights reserved.</p>
+    </footer>
+</body>
+</html>

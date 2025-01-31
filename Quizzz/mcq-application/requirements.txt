@@ -1,0 +1,14 @@
+FastAPI
+uvicorn
+SQLAlchemy
+psycopg2-binary
+alembic
+pydantic
+jinja2
+python-multipart
+passlib
+httpx
+pytest
+pytest-asyncio
+faker
+python-dotenv

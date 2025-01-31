@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>MCQ Result</h1>
+        <p>Thank you for attempting the MCQs!</p>
+        <h2>Your Score: {{ score }} / {{ total_questions }}</h2>
+        <h3>Percentage: {{ percentage }}%</h3>
+
+        <h4>Detailed Results:</h4>
+        <ul>
+            {% for question in results %}
+                <li>
+                    <strong>Question:</strong> {{ question.text }}<br>
+                    <strong>Your Answer:</strong> {{ question.user_answer }}<br>
+                    <strong>Correct Answer:</strong> {{ question.correct_answer }}<br>
+                    <strong>Status:</strong> {{ 'Correct' if question.is_correct else 'Incorrect' }}<br>
+                    {% if not question.is_correct %}
+                        <strong>Explanation:</strong> {{ question.explanation }}<br>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('mcq.index') }}">Try Again</a>
+        <a href="{{ url_for('user.history') }}">View History</a>
+    </div>
+</body>
+</html>
