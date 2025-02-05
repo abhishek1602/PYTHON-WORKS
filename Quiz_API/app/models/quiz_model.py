@@ -1,45 +1,63 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects.postgresql import JSONB
+from enum import Enum as PyEnum
 
 Base = declarative_base()
 
-class SportsQuiz(Base):
-    __tablename__ = 'sports_quiz'
+class Category(PyEnum):
+    science = "science"
+    technical = "technical"
+    sports = "sports"
+    mixed = "mixed"
 
+class Difficulty(PyEnum):
+    easy = "easy"
+    medium = "medium"
+    hard = "hard"
+
+class Question(Base):
+    __tablename__ = "questions"
     id = Column(Integer, primary_key=True)
     question = Column(String)
-    quiz_id = Column(Integer, ForeignKey('quiz.id'))
-    options = Column(JSONB)
-    answer = Column(String)
-    explanation = Column(String)
-    image_url = Column(String)
-    difficulty = Column(String)
-    quiz = relationship('Quiz', back_populates='sports_quiz')
+    option_a = Column(String)
+    option_b = Column(String)
+    option_c = Column(String)
+    option_d = Column(String)
+    correct_answer = Column(String)
+    category = Column(Enum(Category), default=Category.mixed)
+    difficulty = Column(Enum(Difficulty), default=Difficulty.easy)
+    quiz_id = Column(Integer, ForeignKey("quizzes.id"))
+    quiz = relationship("Quiz", back_populates="questions")
 
-class TechQuiz(Base):
-    __tablename__ = 'tech_quiz'
-
+class Quiz(Base):
+    __tablename__ = "quizzes"
     id = Column(Integer, primary_key=True)
-    question = Column(String)
-    quiz_id = Column(Integer, ForeignKey('quiz.id'))
-    options = Column(JSONB)
-    answer = Column(String)
-    explanation = Column(String)
-    image_url = Column(String)
-    difficulty = Column(String)
-    quiz = relationship('Quiz', back_populates='tech_quiz')
+    title = Column(String)
+    description = Column(String)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="quizzes")
+    questions = relationship("Question", back_populates="quiz")
 
-class ScienceQuiz(Base):
-    __tablename__ = 'science_quiz'
-
+class Attempted(Base):
+    __tablename__ = "attempted"
     id = Column(Integer, primary_key=True)
-    question = Column(String)
-    quiz_id = Column(Integer, ForeignKey('quiz.id'))
-    options = Column(JSONB)
-    answer = Column(String)
-    explanation = Column(String)
-    image_url = Column(String)
-    difficulty = Column(String)
-    quiz = relationship('Quiz', back_populates='science_quiz')
+    user_id = Column(Integer, ForeignKey("users.id"))
+    quiz_id = Column(Integer, ForeignKey("quizzes.id"))
+    score = Column(Integer)
+    attempted_at = Column(DateTime, default=datetime.utcnow)
+    user_responses = Column(String) 
+    user = relationship("User", back_populates="attempts")
+    quiz = relationship("Quiz", back_populates="attempts")
+
+class Users(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True)
+    email = Column(String, unique=True)
+    password = Column(String)
+    quizzes = relationship("Quiz", back_populates="user")
+    attempts = relationship("Attempted", back_populates="user")
+
+Quiz.attempts = relationship("Attempted", back_populates="quiz")
