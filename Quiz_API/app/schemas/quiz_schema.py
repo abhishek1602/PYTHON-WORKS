@@ -14,7 +14,7 @@ class Category(str, Enum):
     mixed = "mixed"
 
 class Difficulty(str, Enum):
-    easy = "easy"  
+    easy = "easy"
     medium = "medium"
     hard = "hard"
 
@@ -30,42 +30,34 @@ class User(UserBase):
     role: Role
 
     class Config:
-        from_attributes: True
+        from_attributes = True
 
 class QuestionBase(BaseModel):
-    question_id : int
     question: str
     option_a: str
     option_b: str
     option_c: str
     option_d: str
-    answer: str
+    correct_answer: str
     category: Category
     difficulty: Difficulty
+    hint: Optional[str] = None
+    explanation: Optional[str] = None
+    image_url: Optional[str] = None
+    audio_url: Optional[str] = None
 
-class QuestionUpdate(BaseModel):
-    question: Optional[str] = None
-    option_a: Optional[str] = None
-    option_b: Optional[str] = None
-    option_c: Optional[str] = None
-    option_d: Optional[str] = None
-    correct_answer: Optional[str] = None
-    category: Optional[Category] = None
-    difficulty: Optional[Difficulty] = None
+    class Config:
+        from_attributes = True
 
 class QuestionCreate(QuestionBase):
     pass
 
-    class Config:
-        from_attributes: True
-
 class Question(QuestionBase):
     id: int
     quiz_id: int
-    role: Role
 
     class Config:
-        from_attributes: True   
+        orm_mode = True
 
 class QuizBase(BaseModel):
     title: str
@@ -78,6 +70,9 @@ class Quiz(QuizBase):
     id: int
     user_id: int
     questions: List[Question]
+
+    class Config:
+        orm_mode = True
 
 class QuizUpdate(BaseModel):
     title: Optional[str] = None

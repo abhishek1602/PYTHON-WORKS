@@ -1,48 +1,81 @@
 from sqlalchemy.orm import Session
-from app.model.model import MCQ
-from app.schemas.mcq_schemas import QuestionCreate, QuestionUpdate, MCQBase, MCQUpdate
+from app.models.quiz_model import Quiz, Question
+from app.schemas.quiz_schema import QuizCreateRequest, QuizResponse, QuestionSchema
+from app.models.quiz_model import Category, DifficultyLevel
+import random
 
-class Question:
+# Quiz Repository
+class QuizRepository:
 
-    def add_mcq(db: Session, mcq: QuestionCreate):
-        mcq = MCQ(**mcq.model_dump())
-        db.add(mcq)
+    def get_quiz_by_id(self, db: Session, quiz_id: int) -> QuizResponse:
+        return db.query(Quiz).filter(Quiz.id == quiz_id).first()
+
+    def create_quiz(self, db: Session, quiz: QuizCreateRequest) -> Quiz:
+        db_quiz = Quiz(
+            title=quiz.title,
+            category=quiz.category,
+            description=quiz.description,
+            difficulty=quiz.difficulty,
+            questions=[
+                Question(
+                    question_text=q.question_text,
+                    options=q.options,
+                    correct_option=q.correct_option,
+                    category=q.category,
+                    difficulty=q.difficulty,
+                )
+                for q in quiz.question_data
+            ],
+        )
+        db.add(db_quiz)
         db.commit()
-        db.refresh(mcq)
-        return mcq
+        db.refresh(db_quiz)
+        return db_quiz
 
-    def update_mcq(db: Session, mcq: MCQ, mcq_update: QuestionUpdate):
-        for key, value in mcq_update.model_dump(exclude_none=True).items():
-            setattr(mcq, key, value)
-        db.commit()
-        db.refresh(mcq)
-        return mcq
-    
-    def get_mcq(db: Session, mcq_id: int):
-        return db.query(MCQ).filter(MCQ.id == mcq_id).first()
+    def update_quiz(self, db: Session, quiz_id: int, updated_data: QuizCreateRequest) -> Quiz:
+        quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+        if not quiz:
+            return None
 
-    def get_mcqs(db: Session, skip: int = 0, limit: int = 10):
-        return db.query(MCQ).offset(skip).limit(limit).all()
+        quiz.title = updated_data.title
+        quiz.category = updated_data.category
+        quiz.description = updated_data.description
+        quiz.difficulty = updated_data.difficulty
+        quiz.questions = [
+            Question(
+                question_text=q.question_text,
+                options=q.options,
+                correct_option=q.correct_option,
+                category=q.category,
+                difficulty_level=q.difficulty,
+            )
+            for q in updated_data.question_data
+        ]
 
-
-class Quiz:
-
-    def add_quiz(db: Session, quiz: MCQBase):
-        quiz = MCQ(**quiz.model_dump())
-        db.add(quiz)
         db.commit()
         db.refresh(quiz)
         return quiz
-    
-    def update_quiz(db: Session, quiz: MCQ, quiz_update: MCQUpdate):
-        for key, value in quiz_update.model_dump(exclude_none=True).items():
-            setattr(quiz, key, value)
+
+    def delete_quiz(self, db: Session, quiz_id: int) -> bool:
+        quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+        if not quiz:
+            return False
+
+        db.delete(quiz)
         db.commit()
-        db.refresh(quiz)
-        return quiz
-    
-    def get_quiz(db: Session, quiz_id: int):
-        return db.query(MCQ).filter(MCQ.id == quiz_id).first()
-    
-    def get_quiz_by_heading(db: Session, heading: str):
-        return db.query(MCQ).filter(MCQ.heading == heading).first()
+        return True
+
+    def get_all_quizzes(self, db: Session) -> list[QuizResponse]:
+        return db.query(Quiz).all()
+
+    def get_quiz_questions_by_category_and_difficulty(self, db: Session, category: Category, difficulty: DifficultyLevel) -> list[QuestionSchema]:
+        return db.query(Question).filter(Question.category == category, Question.difficulty == difficulty).all()
+
+    def get_random_questions(self, db: Session, count: int) -> list[QuestionSchema]:
+        questions = db.query(Question).all()
+        return random.sample(questions, min(len(questions), count))
+
+    def get_paginated_quizzes(self, db: Session, page: int, page_size: int) -> list[QuizResponse]:
+        offset = (page - 1) * page_size
+        return db.query(Quiz).offset(offset).limit(page_size).all()
+

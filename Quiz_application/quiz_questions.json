@@ -1,0 +1,184 @@
+[
+    {
+        "question_text": "What is the boiling point of water?",
+        "options": {"A": "100°C", "B": "90°C", "C": "110°C", "D": "120°C"},
+        "correct_option": "A",
+        "category": "SCIENCE",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "Who invented the telephone?",
+        "options": {"A": "Albert Einstein", "B": "Alexander Graham Bell", "C": "Nikola Tesla", "D": "Thomas Edison"},
+        "correct_option": "B",
+        "category": "SCIENCE",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "Which planet is known as the Red Planet?",
+        "options": {"A": "Mars", "B": "Venus", "C": "Jupiter", "D": "Saturn"},
+        "correct_option": "A",
+        "category": "SCIENCE",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "What is the chemical symbol for gold?",
+        "options": {"A": "Go", "B": "Au", "C": "Ag", "D": "Gt"},
+        "correct_option": "B",
+        "category": "SCIENCE",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the powerhouse of the cell?",
+        "options": {"A": "Nucleus", "B": "Ribosome", "C": "Mitochondria", "D": "Chloroplast"},
+        "correct_option": "C",
+        "category": "SCIENCE",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the chemical formula for water?",
+        "options": {"A": "H2O", "B": "CO2", "C": "O2", "D": "NaCl"},
+        "correct_option": "A",
+        "category": "SCIENCE",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the speed of light in a vacuum?",
+        "options": {"A": "3 x 10^8 m/s", "B": "3 x 10^6 m/s", "C": "3 x 10^9 m/s", "D": "3 x 10^7 m/s"},
+        "correct_option": "A",
+        "category": "SCIENCE",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "What is the theory of relativity?",
+        "options": {"A": "A theory explaining gravity", "B": "A theory about the speed of light", "C": "A theory proposed by Isaac Newton", "D": "A theory proposed by Albert Einstein"},
+        "correct_option": "D",
+        "category": "SCIENCE",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "What is the heaviest naturally occurring element?",
+        "options": {"A": "Uranium", "B": "Plutonium", "C": "Lead", "D": "Osmium"},
+        "correct_option": "A",
+        "category": "SCIENCE",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "What was the first computer virus?",
+        "options": {"A": "ILOVEYOU", "B": "Creeper", "C": "Mydoom", "D": "Melissa"},
+        "correct_option": "B",
+        "category": "TECHNOLOGY",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "Who is the founder of Microsoft?",
+        "options": {"A": "Steve Jobs", "B": "Bill Gates", "C": "Larry Page", "D": "Mark Zuckerberg"},
+        "correct_option": "B",
+        "category": "TECHNOLOGY",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "What does HTML stand for?",
+        "options": {"A": "HyperText Machine Language", "B": "Hyperlink Markup Language", "C": "HyperText Markup Language", "D": "Hyperlink Machine Language"},
+        "correct_option": "C",
+        "category": "TECHNOLOGY",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "What is the programming language created by Guido van Rossum?",
+        "options": {"A": "JavaScript", "B": "Python", "C": "Ruby", "D": "Java"},
+        "correct_option": "B",
+        "category": "TECHNOLOGY",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the main function of a web browser?",
+        "options": {"A": "To create web pages", "B": "To store data", "C": "To search the web", "D": "To display web pages"},
+        "correct_option": "D",
+        "category": "TECHNOLOGY",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the full form of RAM?",
+        "options": {"A": "Random Access Memory", "B": "Read Access Memory", "C": "Rapid Access Memory", "D": "Run Access Memory"},
+        "correct_option": "A",
+        "category": "TECHNOLOGY",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the most widely used operating system?",
+        "options": {"A": "Windows", "B": "MacOS", "C": "Linux", "D": "Unix"},
+        "correct_option": "A",
+        "category": "TECHNOLOGY",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "What is the main programming language used for iOS development?",
+        "options": {"A": "Swift", "B": "Kotlin", "C": "Java", "D": "C++"},
+        "correct_option": "A",
+        "category": "TECHNOLOGY",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "Who developed the World Wide Web?",
+        "options": {"A": "Tim Berners-Lee", "B": "Bill Gates", "C": "Steve Jobs", "D": "Larry Page"},
+        "correct_option": "A",
+        "category": "TECHNOLOGY",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "Who won the FIFA World Cup in 2018?",
+        "options": {"A": "Brazil", "B": "Germany", "C": "France", "D": "Argentina"},
+        "correct_option": "C",
+        "category": "SPORTS",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "Who holds the record for the most home runs in a single MLB season?",
+        "options": {"A": "Babe Ruth", "B": "Barry Bonds", "C": "Mark McGwire", "D": "Hank Aaron"},
+        "correct_option": "B",
+        "category": "SPORTS",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "Who is known as the 'King of Football'?",
+        "options": {"A": "Pele", "B": "Diego Maradona", "C": "Lionel Messi", "D": "Cristiano Ronaldo"},
+        "correct_option": "A",
+        "category": "SPORTS",
+        "difficulty": "EASY"
+    },
+    {
+        "question_text": "What is the national sport of Japan?",
+        "options": {"A": "Baseball", "B": "Sumo Wrestling", "C": "Judo", "D": "Karate"},
+        "correct_option": "B",
+        "category": "SPORTS",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "Which country has won the most Olympic gold medals in history?",
+        "options": {"A": "China", "B": "Russia", "C": "USA", "D": "Germany"},
+        "correct_option": "C",
+        "category": "SPORTS",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "What is the maximum score possible in a single frame of bowling?",
+        "options": {"A": "30", "B": "40", "C": "50", "D": "60"},
+        "correct_option": "A",
+        "category": "SPORTS",
+        "difficulty": "MEDIUM"
+    },
+    {
+        "question_text": "Who won the first modern Olympic Games?",
+        "options": {"A": "USA", "B": "France", "C": "Germany", "D": "Greece"},
+        "correct_option": "D",
+        "category": "SPORTS",
+        "difficulty": "HARD"
+    },
+    {
+        "question_text": "What is the highest possible break in a game of snooker?",
+        "options": {"A": "147", "B": "150", "C": "155", "D": "160"},
+        "correct_option": "A",
+        "category": "SPORTS",
+        "difficulty": "HARD"
+    }
+]
