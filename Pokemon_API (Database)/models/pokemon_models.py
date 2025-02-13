@@ -18,3 +18,4 @@ class Pokemon(Base):
     abilities = Column(JSONB, nullable=False)
     stats = Column(JSONB, nullable=False)
     types = Column(JSONB, nullable=False)
+

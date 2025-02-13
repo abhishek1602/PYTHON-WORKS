@@ -56,10 +56,12 @@ class PokemonUpdate(BaseModel):
     image_url: Optional[str] = None
     pokemon_url: Optional[str] = None
     abilities: Optional[List[str]] = None
-    stats: Optional[List[dict]] = None
+    stats: Optional[List[dict]] = None 
     types: Optional[List[PokemonType]] = None
 
 class PokemonIdNames(BaseModel):
     id: int
     name: str
+
+
     
